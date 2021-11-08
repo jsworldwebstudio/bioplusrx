@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Title from './comps/Title';
+import ImageGrid from './comps/ImageGrid';
+import ImageModal from './comps/ImageModal';
 
 function App() {
+  const [selectedUrl, setSelectedUrl] = useState(null);
+  const [selectedAltText, setSelectedAltText] = useState(null);
+
+  const setValues = (url, altText) => {
+    setSelectedUrl(url);
+    setSelectedAltText(altText);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="title">
+        <Title />
+        <ImageGrid setValues={setValues} />
+        { selectedUrl && <ImageModal selectedUrl={selectedUrl} selectedAltText={selectedAltText} setValues={setValues} /> }
+      </div>
     </div>
   );
 }
